@@ -1,12 +1,23 @@
 #ref_db: /vortexfs1/omics/huber/shu/db/pr2-db/pr2_version_4.11.1_mothur.fasta
 #ref_tax: /vortexfs1/omics/huber/shu/db/pr2-db/pr2_version_4.11.1_mothur.tax
+#ref_db: SILVA_132_SSURef_Nr99_tax_silva.fasta
 ref_db: /vortexfs1/omics/huber/shu/db/pr2-db/pr2_version_4.12.0_18S_mothur.fasta
 ref_tax: /vortexfs1/omics/huber/shu/db/pr2-db/pr2_version_4.12.0_18S_mothur.tax
 
-#version: pr2_4.11.1
-version: pr2_4.12.0
+# output files will be named using the below params:
+#   {scratch}/{db_name}/{db_name}_{db_region}_{db_version}*
+db_name: pr2
+db_region: V4
+db_version: 4.12.0
 scratch: /vortexfs1/scratch/sarahhu
 
+# Primers to extract desired region
+## V4
+# clip ref seqs to this length (unset => don't truncate)
+p_tunc_len: 150
+# 18S primers
 primerF: CCAGCASCYGCGGTAATTCC
 primerR: ACTTTCGTTCTTGATYRA
-db_region: V4
+# 16S primers
+# primerF: GTGYCAGCMGCCGCGGTAA
+# primerR: GGACTACNVGGGTWTCTAAT

@@ -13,19 +13,33 @@ _Workflow_
 
 
 ### (1) Set up your database working directory
-I recommend the [Protist Ribosomal 2 - PR2 database](https://github.com/pr2database/pr2database) for 18S tag-sequencing.
+Clone this repository to your local system:
 
 ```
 # Clone this repo
 git clone https://github.com/shu251/db-build-microeuks.git
 cd db-build-microeuks # migrate to repo directory
+```
 
+I recommend the [Protist Ribosomal 2 - PR2 database](https://github.com/pr2database/pr2database) for 18S tag-sequencing.
+
+```
 # Download PR2 database (or database of choice)
 ## Last accessed Aug 30, 2019
 # https://github.com/pr2database/pr2database/releases
 wget "https://github.com/pr2database/pr2database/releases/download/v4.12.0/pr2_version_4.12.0_18S_mothur.fasta.gz"
 wget "https://github.com/pr2database/pr2database/releases/download/v4.12.0/pr2_version_4.12.0_18S_mothur.tax.gz"
 gunzip *mothur*.gz
+```
+
+The Silva SSU database can be used for 16S. The taxonomic information can be
+extracted from the FASTA file header.
+
+```
+# Download the Silva SSU
+wget 
+ftp://ftp.arb-silva.de/release_132/Exports/SILVA_132_SSURef_Nr99_tax_silva.fasta.gz
+gunzip SILVA*fasta.gz
 ```
 
 ### (2) Install conda environment
@@ -37,10 +51,10 @@ There is an 'environment' file (```snake-18S-env.yaml```) in this repo that you 
 [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html) is a tool to manage your bioinformatic pipeline. Using the snakemake framework, we can build complex workflows that are more robust, scalable, and reproducible. This is highly recommended if you are working with HPC, as it plays very nicely with slurm. There is a learning curve when diving into snakemake, but there are many helpful tutorials online and already build (snakemake wrappers or rules)[https://snakemake-wrappers.readthedocs.io/en/stable/index.html] that you can use.
 
 ```
-conda env create -f /envs/snake-18S-env.yaml --name snake-18S 
+conda env create -f ./envs/snake-18S-env.yaml --name snake-18S 
 
 # Enter environment
-source activate snake-18S
+conda activate snake-18S
 
 # Check versions and correct environment set up
 snakemake --version
@@ -64,8 +78,9 @@ Enter your preferred text editor to modify ```config.yaml```. _An explanation of
 ref_db: /vortexfs1/omics/huber/shu/db/pr2-db/pr2_version_4.12.0_18S_mothur.fasta
 ref_tax: /vortexfs1/omics/huber/shu/db/pr2-db/pr2_version_4.12.0_18S_mothur.tax
 
-## version information of your database
-version: pr2_4.12.0
+## naming and version information of your database (for creating output files)
+db_name: pr2
+db_version: 4.12.0
 
 ## I'm using a HPC with a scratch directory that will be my output directory
 scratch: /vortexfs1/scratch/sarahhu
